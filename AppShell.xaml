@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AppThemeBug.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:AppThemeBug"
+    FlyoutBackgroundColor="Red"
+    Shell.FlyoutBehavior="Locked">
+    <Shell.BindingContext>
+        <local:AppShellViewModel></local:AppShellViewModel>
+    </Shell.BindingContext>
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+
+    <Shell.FlyoutContent>
+        <ScrollView>
+            <Grid RowDefinitions="Auto, *">
+                <ListView ItemsSource="{Binding Domains}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:Domain">
+                        <ViewCell>
+                            <Button Text="{Binding Name}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=Green, Dark=Orange}"></Setter>
+                                        <Setter Property="VisualStateManager.VisualStateGroups">
+                                            <VisualStateGroupList>
+                                                <VisualStateGroup x:Name="CommonStates">
+                                                    <VisualState x:Name="Normal"/>
+                                                    <VisualState x:Name="PointerOver">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=Blue, Dark=Pink}"/>
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateGroupList>
+                                        </Setter>
+                                        </Style>
+                                </Button.Style>
+                            </Button>
+                        </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </ScrollView>
+    </Shell.FlyoutContent>
+
+</Shell>
